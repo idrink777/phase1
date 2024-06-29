@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript Sandbox</title>
+    <meta charset="UTF-8" />
+    <style>
+      .input_litre {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <select id="customer">
+      <option value="">Choose the customer</option>
+      <option value="Sathish">Sathish</option>
+      <option value="Tamil">Tamil</option>
+    </select>
+    <label style="display: block; margin-top: 10px">20litre </label>
+    <input
+      type="number"
+      min="0"
+      id="twenl"
+      style="display: block; margin-top: 10px"
+      class="input_litre"
+      placeholder="20litre"
+    />
+    <label style="display: block; margin-top: 10px">300litre </label>
+    <input
+      type="number"
+      min="0"
+      id="threel"
+      style="display: block; margin-top: 10px"
+      class="input_litre"
+      placeholder="300litre"
+    />
+    <label style="display: block; margin-top: 10px">1litre </label>
+    <input
+      type="number"
+      min="0"
+      id="onel"
+      style="display: block; margin-top: 10px"
+      class="input_litre"
+      placeholder="1litre"
+    />
+    <button id="submit" style="display: block; margin-top: 10px">Submit</button>
+    <div>
+      Total :
+      <input
+        type="number"
+        disabled
+        id="test"
+        style="display: inline; margin-top: 10px"
+        class="input_litre"
+        placeholder="total"
+      />
+    </div>
+
+    <script>
+      const customerDetails = [
+        {
+          name: "Sathish",
+          price_20: 10,
+          price_300: 160,
+          price_1: 90,
+        },
+        {
+          name: "Tamil",
+          price_20: 20,
+          price_300: 200,
+          price_1: 100,
+        },
+      ];
+
+      // Set content for the app div
+      document.getElementById("app").innerHTML = `
+      <h1>Hello!</h1>
+    `;
+
+      document.getElementById("test").disabled = true;
+
+      // Event listener for the submit button
+      document.getElementById("submit").addEventListener("click", function (e) {
+        console.log("Submit button clicked");
+        document.getElementById("app").innerHTML = `
+        <h1>Hello JavaScript!</h1>
+      `;
+      });
+
+      // Event listener for the customer select
+      document
+        .getElementById("customer")
+        .addEventListener("change", function (e) {
+          console.log("Customer selected: " + e.target.value);
+        });
+
+      document.getElementById("submit").addEventListener("click", function (e) {
+        let selectedCustomer = document.getElementById("customer").value;
+        console.log(document.getElementById("customer").value);
+        console.log("selectedCustomer", selectedCustomer);
+        if (selectedCustomer != "") {
+          const data = customerDetails.find(
+            (el) => el.name == selectedCustomer
+          );
+          console.log(data.price_20);
+
+          let total =
+            Number(document.getElementById("twenl").value) * data.price_20 +
+            Number(document.getElementById("threel").value) * data.price_300 +
+            Number(document.getElementById("onel").value) * data.price_1;
+          console.log("total", total);
+          document.getElementById("test").value = total;
+        } else {
+          document.getElementById("test").value = 0;
+        }
+      });
+    </script>
+  </body>
+</html>
